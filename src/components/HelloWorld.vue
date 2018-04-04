@@ -27,7 +27,7 @@
             this.msg = response.data.msg
       })
       .catch(e => {
-        console.log(e)
+        console.log(e.response)
       })
     },
     getApiTwo() {
@@ -35,6 +35,9 @@
         .then(response => {
           //console.log(response.body.msg)
           this.msg = response.data.msg
+      })
+      .catch(e => {
+        console.log(e.response)
       })
     }
   }
