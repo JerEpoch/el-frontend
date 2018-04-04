@@ -2,6 +2,7 @@
   <div class="hello">
     <h1>EL Bracket Site</h1>
     <button @click="getApi">Get api</button>
+    <button @click="getApiTwo">Get api two</button>
     <h3>{{ msg }}</h3>
   </div>
 </template>
@@ -21,7 +22,14 @@
           .then(response => {
             console.log(response.body.msg)
             this.msg = response.body.msg
-        })
+      })
+    },
+    getApiTwo() {
+      this.$http.get(BASE_URL + '/api/two')
+        .then(response => {
+          console.log(response.body.msg)
+          this.msg = response.body.msg
+      })
     }
   }
 }
