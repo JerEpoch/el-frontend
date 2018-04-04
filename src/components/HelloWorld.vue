@@ -30,10 +30,10 @@
       })
     },
     getApiTwo() {
-      this.$http.get(BASE_URL + '/api/two')
+      axios.get(BASE_URL + '/api/two')
         .then(response => {
-          console.log(response.body.msg)
-          this.msg = response.body.msg
+          //console.log(response.body.msg)
+          this.msg = response.data.msg
       })
     }
   }
