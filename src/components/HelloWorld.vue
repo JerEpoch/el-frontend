@@ -8,8 +8,9 @@
 </template>
 
 <script>
-  //const BASE_URL = 'http://localhost:5000'
-  const BASE_URL = '104.236.24.149:5000'
+  import axios from 'axios'
+  const BASE_URL = 'http://127.0.0.1:5000'
+  //const BASE_URL = '104.236.24.149:5000'
   export default {
     name: 'app',
     data () {
@@ -19,10 +20,13 @@
     },
     methods: {
       getApi() {
-        this.$http.get(BASE_URL + '/api')
+        axios.get(BASE_URL + '/api')
           .then(response => {
-            console.log(response.body.msg)
-            this.msg = response.body.msg
+            console.log(response.data.msg)
+            this.msg = response.data.msg
+      })
+      .catch(e => {
+        console.log(e)
       })
     },
     getApiTwo() {
