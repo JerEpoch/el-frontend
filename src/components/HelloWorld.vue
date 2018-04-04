@@ -8,7 +8,8 @@
 </template>
 
 <script>
-  const BASE_URL = 'http://localhost:5000'
+  //const BASE_URL = 'http://localhost:5000'
+  const BASE_URL = '104.236.24.149:5000'
   export default {
     name: 'app',
     data () {
