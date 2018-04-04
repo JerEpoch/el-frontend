@@ -4,6 +4,7 @@
     <button @click="getApi">Get api</button>
     <button @click="getApiTwo">Get api two</button>
     <h3>{{ msg }}</h3>
+    <h3>wtf</h3>
   </div>
 </template>
 
