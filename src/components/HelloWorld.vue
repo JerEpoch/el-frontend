@@ -10,8 +10,8 @@
 
 <script>
   import axios from 'axios'
-  const BASE_URL = 'http://127.0.0.1:5000'
-  //const BASE_URL = '104.236.24.149:5000'
+  //const BASE_URL = 'http://127.0.0.1:5000'
+  const PROD_BASE_URL = '104.236.24.149'
   export default {
     name: 'app',
     data () {
@@ -21,7 +21,7 @@
     },
     methods: {
       getApi() {
-        axios.get(BASE_URL + '/api')
+        axios.get(PROD_BASE_URL + '/api')
           .then(response => {
             console.log(response.data.msg)
             this.msg = response.data.msg
@@ -31,7 +31,7 @@
       })
     },
     getApiTwo() {
-      axios.get('http://104.236.24.149/api/two')
+      axios.get(PROD_BASE_URL + 'api/two')
         .then(response => {
           //console.log(response.body.msg)
           this.msg = response.data.msg
