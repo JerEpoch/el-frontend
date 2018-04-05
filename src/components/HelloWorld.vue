@@ -3,7 +3,6 @@
     <h1>EL Bracket Site</h1>
     <button @click="getApi">Get api</button>
     <button @click="getApiTwo">Get api two</button>
-    <button @click="getApiThree">Get api two</button>
     <h3>{{ msg }}</h3>
     <h3>wtf</h3>
   </div>
@@ -22,7 +21,7 @@
     },
     methods: {
       getApi() {
-        axios.get(PROD_BASE_URL + '/api')
+        axios.get('/api')
           .then(response => {
             console.log(response.data.msg)
             this.msg = response.data.msg
@@ -32,7 +31,7 @@
       })
     },
     getApiTwo() {
-      axios.get(PROD_BASE_URL + '/api/two')
+      axios.get('/api/two')
         .then(response => {
           //console.log(response.body.msg)
           this.msg = response.data.msg
