@@ -3,6 +3,7 @@
     <h1>EL Bracket Site</h1>
     <button @click="getApi">Get api</button>
     <button @click="getApiTwo">Get api two</button>
+    <button @click="getApiThree">Get api two</button>
     <h3>{{ msg }}</h3>
     <h3>wtf</h3>
   </div>
@@ -11,7 +12,7 @@
 <script>
   import axios from 'axios'
   //const BASE_URL = 'http://127.0.0.1:5000'
-  const PROD_BASE_URL = 'http://104.236.24.149'
+  //const PROD_BASE_URL = 'http://104.236.24.149'
   export default {
     name: 'app',
     data () {
@@ -32,6 +33,16 @@
     },
     getApiTwo() {
       axios.get(PROD_BASE_URL + '/api/two')
+        .then(response => {
+          //console.log(response.body.msg)
+          this.msg = response.data.msg
+      })
+      .catch(e => {
+        console.log(e.response)
+      })
+    },
+    getApiThree() {
+      axios.get('/api/two')
         .then(response => {
           //console.log(response.body.msg)
           this.msg = response.data.msg
