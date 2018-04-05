@@ -31,7 +31,7 @@
       })
     },
     getApiTwo() {
-      axios.get(BASE_URL + '/api/two')
+      axios.get('http://104.236.24.149/api/two')
         .then(response => {
           //console.log(response.body.msg)
           this.msg = response.data.msg
