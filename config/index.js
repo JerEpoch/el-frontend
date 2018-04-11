@@ -11,7 +11,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
+      '/bracket-api': {
         target: 'http://localhost:5000',
         changeOrigin: false
       }
