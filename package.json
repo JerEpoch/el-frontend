@@ -13,11 +13,17 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "animate.css": "^3.6.1",
+    "animated-vue": "^0.5.3",
+    "auth0-js": "^9.4.2",
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.6",
     "vue": "^2.5.2",
+    "vue-awesome": "^3.0.0",
     "vue-resource": "^1.5.0",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuelidate": "^0.6.2",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
