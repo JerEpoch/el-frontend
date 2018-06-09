@@ -65,11 +65,10 @@
 
 <script>
 import PreviewTourn from './PreviewTourn.vue'
-import TestThing from './testThing.vue'
+
   export default {
     components: {
-      appPreview: PreviewTourn,
-      appTest: TestThing
+      appPreview: PreviewTourn
     },
     data() {
       return {

@@ -1,17 +1,5 @@
 <template>
 <div>
-    <!-- <b-card-group deck class="tourn-card">
-    <b-card :header="tournName" >
-      <b-list-group>
-        <b-list-group-item class="task-list" v-for="(name, index) in allNames" :name="name" :key="index">{{allNames[index].playerOne}}</b-list-group-item>
-      </b-list-group>
-    </b-card>
-  </b-card-group> -->
-  <!-- <b-button @click="randBracket" class="mt-2" v-show="!randomDone">random</b-button> -->
-  
-
-  
-
     <b-card-group deck class="tourn-card">
     <b-card :header="tournName" align="center">
       <b-list-group v-for="(name, index) in allNames" :name="name" :key="index">
@@ -96,7 +84,7 @@
       getTourns() {
         console.log("getting")
 
-        return axios.get('/bracket-api/tournament/getTourn', {
+        return axios.get('/bracket-api/tournament/getAllTournaments', {
 
         })
         .then(res => {

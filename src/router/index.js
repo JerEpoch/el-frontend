@@ -8,6 +8,7 @@ import Login from '@/components/auth/Login'
 import Admin from '@/components/admin/Admin'
 import CurrentTournament from '@/components/tournament/CurrentTournament'
 import CreateTournament from '@/components/tournament/CreateTournament'
+import Tournament from '@/components/tournament/Tournament'
 // import store from '@/store'
 import store from '../store/store'
 
@@ -67,6 +68,11 @@ export default new Router({
       path: '/new_tournament',
       name: 'CreateTournament',
       component: CreateTournament
+    },
+    {
+      path: '/tournament/:id',
+      name: 'Tournament',
+      component: Tournament
     }
 
   ]
