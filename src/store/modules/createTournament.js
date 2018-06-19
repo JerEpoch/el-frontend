@@ -9,9 +9,7 @@ const getters = {
 }
 
 const actions = {
-  addPlayer({commit}){
-    console.log("adding player")
-  }
+
 }
 
 const mutations = {

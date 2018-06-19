@@ -73,7 +73,7 @@ import PreviewTourn from './PreviewTourn.vue'
     data() {
       return {
         tournName: 'Test Name',
-        playersNames: ['bob', 'jane', 'person a', 'person b', 'person c', 'person d'],
+        playersNames: ['bob', 'jane', 'person a', 'person b', 'person c', 'person d', 'player e', 'player f'],
         versusBracket: [],
         playerName: '',
         acceptBracket: false,

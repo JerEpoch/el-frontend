@@ -9,14 +9,13 @@
 					</li>
 				</ul>
 			</div>
-				<button @click="getstuff">click</button>
-			
 		</b-container>
 	</div>
 </template>
 
 <script>
 	import axios from 'axios'
+	
 
 	export default {
 		data() {
@@ -39,9 +38,7 @@
 			.catch(error => console.log(error))
 		},
 		methods: {
-			getstuff() {
-				console.log(this.allTournaments[0])
-			}
+
 		}
 	}
 </script>
