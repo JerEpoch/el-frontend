@@ -32,7 +32,7 @@
 					return axios.get('/bracket-api/users/user')
 						.then(res => {
 						//console.log(res.data.logged_in_as)
-						console.log(res.data)
+						//console.log(res.data)
 						this.$store.commit('SET_USER', res.data.logged_in_as)
 						this.$store.dispatch('setAccess', res.data.user_access)
 					})

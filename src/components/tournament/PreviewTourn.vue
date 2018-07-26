@@ -10,7 +10,7 @@
     </b-card>
   </b-card-group>
   <b-button @click="submitBracket" class="mt-1">Create Tournament</b-button>
-  <b-button @click="getTourns" class="mt-1">GET Tournament</b-button>
+  
   <!-- <b-button class="mt-1">Edit Bracket</b-button> -->
 </div>
 
@@ -19,6 +19,8 @@
 
 <script>
   import axios from 'axios'
+  import router from '../../router'
+  import {mapGetters} from 'vuex'
   
   export default {
     data() {
@@ -75,7 +77,10 @@
           round: 1
         })
         .then(res => {
-          console.log(res.data.test)
+          //console.log(res.data.data)
+          var id = res.data.data.id
+          //console.log(id)
+          router.push({path: `/tournament/` + id })
         })
         .catch(error => {
           console.log(error.response.data)

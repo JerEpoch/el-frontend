@@ -67,7 +67,14 @@ export default new Router({
     {
       path: '/new_tournament',
       name: 'CreateTournament',
-      component: CreateTournament
+      component: CreateTournament,
+      beforeEnter(to, from, next) {
+        if(!store.getters.isAuthenticated) {
+          next('/login')
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/tournament/:id',

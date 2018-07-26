@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
+import router from '../../router'
 
 const state = {
   matchWinners: [],
@@ -26,20 +27,25 @@ const getters = {
 
 const actions = {
   addPlayer({commit}, data) {
-    console.log("adding player " + data.player + " index is " + data.index)
+    //console.log("adding player " + data.player + " index is " + data.index)
     var player = data.player
     var index = data.index
     commit('ADD_PLAYER', {player, index})
   },
-  submitMatchWinners({commit, dispatch}, data) {
-    console.log("submitting winners" + data.roundNumber)
-
+  submitMatchWinners({commit}, data) {
+    //console.log("submitting winners" + data.roundNumber)
+    var finalMatch = false
     // if there's odd number of players. add a BYE
-    if(state.matchWinners.length % 2 != 0 ){
+    if(state.matchWinners.length > 1) {
+       if(state.matchWinners.length % 2 != 0 ){
         var index = state.matchWinners.length
         var player = "BYE"
         commit('ADD_PLAYER', {player, index })
       }
+    } else {
+      finalMatch = true
+    }
+   
     
     // create a dict object for backend
     var newBracket = []
@@ -49,16 +55,21 @@ const actions = {
         playerTwo: state.matchWinners[i+1]
       })
     }
-
-   
-    console.log(newBracket)
+  
+    //console.log(newBracket)
 
     axios.post('/bracket-api/tournament', {
-      tournamentId: data.matchId,
-      players: state.matchWinners,
-      round: data.roundNumber
+      tournamentId: data.tournamentId,
+      players: newBracket,
+      round: data.roundNumber,
+      finalMatch: finalMatch
     })
-    .then(res => console.log(res))
+    .then(res => {
+      console.log(res)
+      router.push(`/tournament/${data.tournamentId}`)
+      //router.push('/')
+    })
+    .catch(err => console.log(err.response.data.error))
   },
   setWinnersArr({commit}, arrSize) {
     commit('SET_WINNERS_SIZE', arrSize)

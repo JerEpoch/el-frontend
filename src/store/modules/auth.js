@@ -35,10 +35,15 @@ const mutations =  {
     state.access_token = token.access_token
     //state.refresh_token = token.refresh_token
   },
+  'SET_TOKEN_USER_BACK'(state, token) {
+    //sets the token when the user returns to the website
+    state.access_token = token
+  },
   'LOGOUT_USER'(state) {
     localStorage.removeItem('access_token')
     state.user = ''
     state.user_access = ''
+    state.access_token = ''
   },
   'SET_ACCESS'(state, access) {
     state.user_access = access
@@ -85,6 +90,8 @@ const actions = {
   },
   setAccess({commit}, access) {
     commit('SET_ACCESS', access)
+    //console.log(localStorage.getItem('access_token'))
+    commit('SET_TOKEN_USER_BACK', localStorage.getItem('access_token'))
   }
 }
 
@@ -104,6 +111,7 @@ const getters = {
   },
   isAuthenticated(state) {
     //console.log('is auth token: ' + state.token)
+    return isValidToken(state.access_token)
     return true
   },
   isAdmin(state) {

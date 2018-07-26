@@ -4,54 +4,61 @@
 			
       <!-- {{matches}} -->
       <div>
-        <b-card-group deck class="tourn-card">
+        <!-- <b-card-group deck class="tourn-card">
           <b-card :header="round" align="center" class=" border border-info">
             <b-list-group v-for="(name, index) in matches" :key="index">
 
               <b-list-group-item class="task-list border border-dark">{{matches[index].playerOne}} 
-                <!-- <b-button class="float-right" v-b-tooltip.hover title="Set Player as Winner" @click="setWinner(matches[index].playerOne)">
-                <icon name="check-circle"></icon></b-button> -->
+
     
                 </b-list-group-item>
               
               <b-list-group-item class="task-list mb-3 border border-dark">{{matches[index].playerTwo}}
-                <!-- <b-button class="float-right" v-b-tooltip.hover title="Set Player as Winner" @click="setWinner(matches[index].playerTwo)">
-                <icon name="check-circle"></icon></b-button> -->
+ 
               </b-list-group-item>
 
             </b-list-group>
           </b-card>
-        </b-card-group>
-        <b-btn class="mt-2" v-b-modal.adminRound>Select Winners</b-btn>
-        <b-btn class="mt-2" v-if="checkWinners" @click="submitMatch">Submit Match Winners</b-btn>
-        <!-- <div>
-          <b-dropdown text="Select Winner" size="sm" v-for="(name, index) in matches" :key="index" class="mt-2 mr-1" v-model="winnerName">
-            <b-dropdown-item>{{matches[index].playerOne}}</b-dropdown-item>
-            <b-dropdown-divider></b-dropdown-divider>
-            <b-dropdown-item>{{matches[index].playerTwo}}</b-dropdown-item>
-          </b-dropdown>
-          <div> -->
+        </b-card-group>-->
 
-            <!-- <b-button size="sm" class="mt-2">Finalize the Round</b-button> -->
-          <!-- </div> -->
-        <!-- </div> -->
+
+    <!-- NOTE
+    check for second player on last round in the match in tourament.vue
+    MAYBE ADD TITLE IN MODEL
+     -->
+        
+        <b-card-group deck class="tourn-card mb-2">
+          <b-card :header="title">
+          <b-list-group v-for="(match, index) in filterMatchArray" :key="index"> 
+            <div v-if="match.playerTwo">
+              <b-list-group-item class="task-list border border-dark">{{match.playerOne}}</b-list-group-item>
+              <b-list-group-item class="task-list border border-dark mb-3" >{{match.playerTwo}}</b-list-group-item>
+            </div>
+            <div v-else>
+              <b-list-group-item class="task-list border border-dark">{{match.playerOne}}</b-list-group-item>
+            </div>
+          </b-list-group>
+        </b-card>
+      </b-card-group>
+
+        <b-btn class="mt-2" v-b-modal.adminRound v-if="!isCompleted && !checkTournamentDone">Select Winners</b-btn>
+        <b-btn class="mt-2" v-if="checkWinners && !isCompleted" @click="submitMatch">Submit Match Winners</b-btn> 
+ 
       </div>
 
+      
+
       <div>
-        <b-modal id="adminRound">
-          <!-- <b-form-group label="Select the Winners">
-            <p>Select One From Each Match</p>
-            <b-form-checkbox-group stacked v-for="(name, index) in matches" :key="index" v-model="wins">
-              <h5>Match {{index + 1}}</h5>
-              <b-form-checkbox :value="matches[index].playerOne" @change="test(index,matches[index].playerOne)">{{matches[index].playerOne}}</b-form-checkbox>
-              <b-form-checkbox :value="matches[index].playerTwo" class="mb-2" @change="test(index,matches[index].playerOne)">{{matches[index].playerTwo}}</b-form-checkbox>
-            </b-form-checkbox-group>
-          </b-form-group>  -->
-          <app-tourn-radio v-for="(name, index) in matches" :key="index" :playerOne=matches[index].playerOne :playerTwo=matches[index].playerTwo v-on:playerSelected="addPlayer($event, index)"></app-tourn-radio>
+        <b-modal id="adminRound" v-if="!isCompleted && !checkTournamentDone">
+          <app-tourn-radio 
+            v-for="(name, index) in filterMatchArray" :key="index" :playerOne=matches[index].playerOne :playerTwo=matches[index].playerTwo v-on:playerSelected="addPlayer($event, index)">
+            </app-tourn-radio>
         </b-modal>
       </div>
 
-      <div>
+  
+
+      <div v-if="!isCompleted && !checkTournamentDone">
         <h4>Winners:</h4>
         <ul class="list-unstyled">
           <li v-for="(p, index) in winners" :key="index">
@@ -74,11 +81,13 @@
     components: {
       appTournRadio: TournamentRadio
     },
-    props: ['players', 'matches', 'round', 'roundNum'],
+    props: ['players', 'matches', 'round', 'roundNum', 'roundNumber', 'tournamentCompleted'],
     data() {
       return {
         winnerName: '',
-        showSubWins: false
+        showSubWins: false,
+        isCompleted: false,
+        title: ''
       }
     },
     methods: {
@@ -97,11 +106,12 @@
         this.$store.dispatch('addPlayer', data)
       },
       submitMatch() {
-        console.log(this.roundNum)
+        //console.log(this.roundNumber)
         var data = {
-          roundNumber: this.roundNum,
-          matchId: this.$route.params.id
+          roundNumber: this.roundNumber + 1,
+          tournamentId: this.$route.params.id
         }
+        //console.log(data)
         this.$store.dispatch('submitMatchWinners',  data)
 
       }
@@ -110,7 +120,32 @@
       ...mapGetters({
         winners: 'winners',
         checkWinners: 'winnersLength'
-      })
+      }),
+      roundTitle() {
+        // console.log(this.tournamentCompleted) 
+        // console.log("inside round title comp")
+        // console.log(this.matches[0].roundTitle)
+        // console.log("=======")
+        return "Round " + this.roundNumber.toString()
+      },
+      filterMatchArray(){
+        //console.log(this.matches)
+        var tempArr = []
+        tempArr = this.matches.filter(round => round.round == this.roundNumber)
+        //console.log(tempArr)
+        this.isCompleted = tempArr[0].isCompleted
+        this.$store.dispatch('setWinnersArr', tempArr.length)
+        //this.tlengthArr = tempArr
+        this.title = tempArr[0].roundTitle
+        
+        return tempArr
+        //return this.matches.filter(round => round.round == this.roundNumber)
+        //console.log(this.round.roundNumber)
+        //console.log(this.matches.filter(round => round.round == this.roundNumber))
+      },
+      checkTournamentDone() {
+        return this.tournamentCompleted
+      }
     }
   }
 </script>

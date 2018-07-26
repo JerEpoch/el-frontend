@@ -2,7 +2,7 @@
 	<div>
 		<b-navbar toggleable id="navbar-background">
 			<b-navbar-toggle target="nav_text_collapse"></b-navbar-toggle>
-			<b-navbar-brand><router-link to="/">EL-Bracket</router-link></b-navbar-brand>
+			<b-navbar-brand><router-link to="/">WI Extra Life</router-link></b-navbar-brand>
 			<b-collapse is-nav id="nav_text_collapse">
 				<b-navbar-nav>
 					<b-nav-item><router-link to="/getapi"><a>API</a></router-link></b-nav-item>
@@ -19,7 +19,7 @@
 				<b-navbar-nav class="ml-auto">
 					<b-nav-item right><router-link to="/about"><a>About</a></router-link></b-nav-item>
 					<b-nav-item-dropdown right>
-						<template slot="button-content" v-if="username">{{username}}</template>
+						<template slot="button-content" v-if="isAuthenticated">{{username}}</template>
 						<template slot="button-content" v-else>User</template>
 						<b-dropdown-item v-if="getAdmin"><router-link to="/admin" ><a>Admin Page</a></router-link></b-dropdown-item>
 						<div v-if="!username">
@@ -60,6 +60,9 @@
 				if(store.getters.isAdmin) {
 					return this.isAdmin = true
 				}
+			},
+			isAuthenticated: function() {
+				return this.$store.getters.isAuthenticated
 			}
 		}
 	}

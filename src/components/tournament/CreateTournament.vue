@@ -1,13 +1,13 @@
 <template>
 	<div >
-		<b-container class="justify-content-center w-50">
-			<h1>Create New Tournament</h1>
+    <b-container class="justify-content-center w-50">
+      <h1>Create New Tournament</h1>
         <animated-fade-out>
           <div v-show="!showPreview">
             <b-form-input type="text" required placeholder="Tournament Name (required)" v-model="tournName" autofocus class="input-box-width mb-1"></b-form-input>
             <b-form-input type="text" required placeholder="Player's Name (required)" v-model="playerName" class="input-box-width"></b-form-input>
             <div>
-              <b-button variant="primary" class="mt-1" @click="addPlayer">Add Player</b-button>
+              <b-button variant="primary" class="mt-2" @click="addPlayer">Add Player</b-button>
               <b-button class="mt-1" :disabled="!getCreateIsDisabled"
                 @click="finalizeBracket"
                 v-b-tooltip.hover title="Be sure the player's information is correct."
@@ -26,7 +26,7 @@
             v-b-tooltip.hover title="Be sure the information is correct."
           >Create Tournament</b-button>
         </div> -->
-       <!-- @click="show = !show" -->
+      <!-- @click="show = !show" -->
       <transition
         name="bracket-preview-transition"
         enter-active-class="animated fadeIn"
@@ -58,13 +58,17 @@
       </div>
       </transition>   
       <!-- <button @click="randBracketTwo">Click</button> -->
-		</b-container>
+    </b-container>
+  
 	</div>
 </template>
 
 
 <script>
 import PreviewTourn from './PreviewTourn.vue'
+import store from '../../store/store'
+import { mapGetters } from 'vuex';
+
 
   export default {
     components: {
@@ -125,12 +129,12 @@ import PreviewTourn from './PreviewTourn.vue'
         this.showPreview = true
         //console.log(this.versusBracket)
       },
-      test(event) {
-        if(event.which === 13){
-          console.log("testing")
-        }
+      // test(event) {
+      //   if(event.which === 13){
+      //     console.log("testing")
+      //   }
         
-      }
+      // }
     },
     computed: {
       getHasData: function() {
@@ -138,7 +142,10 @@ import PreviewTourn from './PreviewTourn.vue'
       },
       getCreateIsDisabled: function() {
         return this.playersNames.length > 1
-      }
+      },
+      ...mapGetters({
+        username: 'user'
+      })
     }
   }
 </script>
