@@ -41,15 +41,14 @@
         </b-card>
       </b-card-group>
 
-        <b-btn class="mt-2" v-b-modal.adminRound v-if="!isCompleted && !checkTournamentDone">Select Winners</b-btn>
+        <b-btn class="mt-2" v-b-modal.adminRound v-if="!isCompleted && !checkTournamentDone && isTournamentAdmin">Select Winners</b-btn>
         <b-btn class="mt-2" v-if="checkWinners && !isCompleted" @click="submitMatch">Submit Match Winners</b-btn> 
- 
       </div>
 
       
-
+      <!-- isTournamentAdmin needs to be done on backend still -->
       <div>
-        <b-modal id="adminRound" v-if="!isCompleted && !checkTournamentDone">
+        <b-modal id="adminRound" v-if="!isCompleted && !checkTournamentDone && isTournamentAdmin">
           <app-tourn-radio 
             v-for="(name, index) in filterMatchArray" :key="index" :playerOne=matches[index].playerOne :playerTwo=matches[index].playerTwo v-on:playerSelected="addPlayer($event, index)">
             </app-tourn-radio>
@@ -58,7 +57,7 @@
 
   
 
-      <div v-if="!isCompleted && !checkTournamentDone">
+      <div v-if="!isCompleted && !checkTournamentDone && isTournamentAdmin">
         <h4>Winners:</h4>
         <ul class="list-unstyled">
           <li v-for="(p, index) in winners" :key="index">
@@ -75,6 +74,7 @@
 <script>
   import TournamentRadio from './TournamentRadio.vue'
   import {mapGetters} from 'vuex'
+  import {setUser} from '@/utils'
   
 
   export default {
@@ -87,7 +87,8 @@
         winnerName: '',
         showSubWins: false,
         isCompleted: false,
-        title: ''
+        title: '',
+        isTournAdmin: false
       }
     },
     methods: {
@@ -116,11 +117,24 @@
 
       }
     },
+
+    mounted() {
+      this.$store.dispatch('isTournamentAdmin', {id: parseInt(this.$route.params.id)})
+    },
+    created() {
+			setUser()
+		},
+
     computed: {
       ...mapGetters({
         winners: 'winners',
         checkWinners: 'winnersLength'
       }),
+      isTournamentAdmin() {
+        //return this.$store.dispatch('isTournamentAdmin', {id: parseInt(this.$route.params.id)})
+        //return this.$store.dispatch('isTournamentAdmin', {id: parseInt(this.$route.params.id)})
+        return this.$store.getters.userTournAdmin
+      },
       roundTitle() {
         // console.log(this.tournamentCompleted) 
         // console.log("inside round title comp")

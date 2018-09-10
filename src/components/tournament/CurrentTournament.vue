@@ -10,7 +10,7 @@
 				</ul>
 			</div>
 			<div v-else class="mb-4 mt-3">
-				<h4>There are no tournaments currently running.</h4>
+				<h4>There are no tournaments currently running. Create one <router-link :to="`/new_tournament`">here</router-link></h4>
 			</div>
 			<h1>Previous Tournaments</h1>
 			<div v-if="completedTournaments.length">
@@ -20,13 +20,16 @@
 					</li>
 				</ul>
 			</div>
+			<div v-else class="mt-3">
+				<h4>There are no past tournaments.</h4>
+			</div>
 		</b-container>
 	</div>
 </template>
 
 <script>
 	import axios from 'axios'
-	
+	import {setUser} from '@/utils'
 
 	export default {
 		data() {
@@ -37,6 +40,7 @@
 			}
 		},
 		created() {
+			setUser()
 			var vm = this
 			axios.get('/bracket-api/tournament/getAllTournaments')
 			.then(res => {
@@ -49,9 +53,6 @@
 				//console.log(this.allTournaments.tourns[0].id)
 			})
 			.catch(error => console.log(error))
-		},
-		methods: {
-
 		}
 	}
 </script>

@@ -70,14 +70,16 @@
         console.log("submitting bracket...")
         var bracket = this.allNames
         var name = this.tournName
+        //var jwt = localStorage.getItem('access_token')
         console.log(bracket)
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
         return axios.post('/bracket-api/tournament/create', {
           bracket,
           tournamentName: name,
           round: 1
         })
         .then(res => {
-          //console.log(res.data.data)
+          console.log(res.data.data)
           var id = res.data.data.id
           //console.log(id)
           router.push({path: `/tournament/` + id })

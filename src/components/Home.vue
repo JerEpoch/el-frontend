@@ -13,6 +13,7 @@
 	import {mapMutations} from 'vuex'
 	import axios from 'axios'
 	import store from '../store/store'
+	import {isValidToken, setUser} from '@/utils'
 
 	export default {
 		data() {
@@ -25,26 +26,34 @@
 				username: 'user'
 			})
 		},
+		created() {
+			setUser()
+		},
 		mounted() {
-			if(localStorage.getItem('access_token')) {
-				if(!store.getters.username){
-					axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
-					return axios.get('/bracket-api/users/user')
-						.then(res => {
-						//console.log(res.data.logged_in_as)
-						//console.log(res.data)
-						this.$store.commit('SET_USER', res.data.logged_in_as)
-						this.$store.dispatch('setAccess', res.data.user_access)
-					})
-					.catch(err => {
-						console.log("error getting user")
-						//console.log(err.data)
-					})
-				}
-				//console.log("token is here")
-				//jwt_token = localStorage.getItem('token')
-				//console.log(localStorage.getItem('access_token'))
-			}
+			
+
+				//move all this to the store itself
+				
+			
+			// if(localStorage.getItem('access_token')) {
+			// 	if(!store.getters.username){
+			// 		axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
+			// 		return axios.get('/bracket-api/users/user')
+			// 			.then(res => {
+			// 			//console.log(res.data.logged_in_as)
+			// 			console.log(res.data)
+			// 			this.$store.commit('SET_USER', res.data.logged_in_as)
+			// 			this.$store.dispatch('setAccess', res.data.user_access)
+			// 		})
+			// 		.catch(err => {
+			// 			console.log("error getting user")
+			// 			//console.log(err.data)
+			// 		})
+			// 	}
+			// 	//console.log("token is here")
+			// 	//jwt_token = localStorage.getItem('token')
+			// 	//console.log(localStorage.getItem('access_token'))
+			// }
 		}
 	}
 </script>

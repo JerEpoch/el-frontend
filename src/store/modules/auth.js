@@ -10,7 +10,8 @@ const state = {
   user: '',
   message: '',
   access_token: '',
-  user_access: ''
+  user_access: '',
+  isTournAdmin: ''
 }
 
 const mutations =  {
@@ -19,7 +20,7 @@ const mutations =  {
     state.hasRegError = true
   },
   setMessage(state, msg) {
-    console.log(msg)
+    //console.log(msg)
     state.message = msg
   },
   'SET_USER'(state, user) {
@@ -47,6 +48,9 @@ const mutations =  {
   },
   'SET_ACCESS'(state, access) {
     state.user_access = access
+  },
+  'SET_TOURNAMENT_ADMIN'(state, isAdmin) {
+    state.isTournAdmin = isAdmin
   }
 }
 
@@ -92,6 +96,32 @@ const actions = {
     commit('SET_ACCESS', access)
     //console.log(localStorage.getItem('access_token'))
     commit('SET_TOKEN_USER_BACK', localStorage.getItem('access_token'))
+  }, 
+  isTournamentAdmin({commit}, {id}) {
+
+    //pull function out and add here
+    // var isAd = checkTournAdmin(state.access_token, id)
+    // console.log("ISTOURN ADMIN")
+    // console.log(isAd)
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
+    return axios.get(`/bracket-api/tournament/tournadmin/${id}`, {
+    })
+    .then(res => {
+      // console.log("Data from checkTournAdmin function")
+      // console.log(res.data)
+      var isAdmin = res.data.data
+      console.log("is tourn admin in auth.js")
+      console.log(isAdmin)
+      commit('SET_TOURNAMENT_ADMIN', isAdmin)
+      //console.log(isAdmin)
+      // if (!isAdmin) {
+      //   //return false
+        
+      // }
+      // else {
+      //   return true
+      // }
+    })
   }
 }
 
@@ -112,13 +142,16 @@ const getters = {
   isAuthenticated(state) {
     //console.log('is auth token: ' + state.token)
     return isValidToken(state.access_token)
-    return true
+    //return true
   },
   isAdmin(state) {
     return state.user_access === 'admin'
   },
   isStreamer(state) {
     return state.user_access === 'streamer'
+  },
+  userTournAdmin(state) {
+    return state.isTournAdmin
   }
 }
 
