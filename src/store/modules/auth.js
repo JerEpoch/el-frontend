@@ -55,7 +55,7 @@ const mutations =  {
 }
 
 const actions = {
-  signup ({commit, dispatch}, authData) {
+  signup ({commit}, authData) {
     commit('RESET_ERROR_STATE')
     return axios.post('/bracket-api/users/create', {
       email: authData.email,

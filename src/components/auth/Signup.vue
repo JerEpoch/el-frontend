@@ -85,7 +85,7 @@
 	}
 
 	.input-box-width {
-    width: 600px;
+    width: 55%;
   }
 </style>
 

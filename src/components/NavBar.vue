@@ -27,7 +27,8 @@
 							<b-dropdown-item ><router-link to="/login"><a>Login</a></router-link></b-dropdown-item>
 						</div>
 						<div v-if="username">
-							<b-dropdown-item ><router-link to="/"><a>Profile</a></router-link></b-dropdown-item>
+							<!-- <b-dropdown-item ><router-link :to="`/profile/${username}`"><a>Profile</a></router-link></b-dropdown-item> -->
+							<b-dropdown-item ><router-link :to="`/profile`"><a>Profile</a></router-link></b-dropdown-item>
 							<b-dropdown-item  @click="logout"><a>Logout</a></b-dropdown-item>
 						</div>
 					</b-nav-item-dropdown>

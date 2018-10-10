@@ -5,18 +5,27 @@ import Home from '@/components/Home'
 import About from '@/components/About'
 import Signup from '@/components/auth/Signup'
 import Login from '@/components/auth/Login'
+import Profile from '@/components/auth/Profile'
 import Admin from '@/components/admin/Admin'
 import CurrentTournament from '@/components/tournament/CurrentTournament'
 import CreateTournament from '@/components/tournament/CreateTournament'
 import Tournament from '@/components/tournament/Tournament'
+
 // import store from '@/store'
 import store from '../store/store'
+import {isValidToken, setUser} from '@/utils'
+
+//https://router.vuejs.org/guide/advanced/data-fetching.html#fetching-after-navigation
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '*',
+      redirect: '/'
+    },
     {
       path: '/',
       name: 'Home',
@@ -43,11 +52,25 @@ export default new Router({
       component: Login
     },
     {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile,
+      
+      beforeRouteEnter(to, from, next) {
+        setUser()
+        if(!store.getters.isAuthenticated) {
+          next('/login')
+        } else {
+          next()
+        }
+      }
+    },
+    {
       path: '/admin',
       name: 'AdminPage',
       component: Admin,
       beforeEnter(to, from, next) {
-        console.log('user admin: ' + store.getters.isAdmin)
+        //console.log('user admin: ' + store.getters.isAdmin)
         if (!store.getters.isAuthenticated){
           console.log("first one")
           next('/login')

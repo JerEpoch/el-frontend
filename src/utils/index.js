@@ -17,13 +17,14 @@ export function isValidToken(token) {
 }
 
 export function setUser() {
+  //console.log("setting user....")
   if(isValidToken(localStorage.getItem('access_token'))) {
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
     return axios.get('/bracket-api/users/user')
       .then(res => {
       //console.log(res.data.logged_in_as)
       
-      console.log(res.data)
+      //console.log(res.data)
   
       store.commit('SET_USER', res.data.logged_in_as)
       store.dispatch('setAccess', res.data.user_access)
@@ -32,7 +33,10 @@ export function setUser() {
       console.log("error getting user")
     })
   }
+}
 
+export function getTourns() {
+  console.log("test get tourns")
 }
 
 // checks if user is the creator of the tournament and returns true

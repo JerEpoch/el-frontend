@@ -4,6 +4,7 @@
       <button @click="getApi">Get api</button>
       <button @click="getApiTwo">Get api two</button>
       <button @click="jwtprot">Test jwt prot</button>
+      <button @click="userinfo">Get the user</button>
       <h3>{{ msg }}</h3>
       <p>This is for testing only. Doesn't do anything exciting.</p>
       <p>User: {{ userState }}</p>
@@ -58,6 +59,13 @@
       .catch(e => {
         console.log(e.response)
       })
+    },
+    userinfo() {
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
+      axios.get('/bracket-api/users/edit/user')
+        .then(res => {
+          console.log(res)
+        })
     },
     getCreate() {
       axios.get('/bracket-api/users')
