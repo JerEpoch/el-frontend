@@ -6,7 +6,7 @@ import auth from './modules/auth'
 //import createTournament from './modules/createTournament'
 import matchWinners from './modules/matchWinners'
 import editUser from './modules/editUser'
-
+import { EventBus } from '@/utils'
 
 Vue.use(Vuex)
 

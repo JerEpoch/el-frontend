@@ -27,7 +27,11 @@
 			})
 		},
 		created() {
-			setUser()
+			
+			if(!this.$store.getters.user ){
+				setUser()
+			}
+			
 		},
 		mounted() {
 			

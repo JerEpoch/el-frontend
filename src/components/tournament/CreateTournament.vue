@@ -68,7 +68,7 @@
 import PreviewTourn from './PreviewTourn.vue'
 import store from '../../store/store'
 import { mapGetters } from 'vuex';
-
+import {isValidToken, setUser} from '@/utils'
 
   export default {
     components: {
@@ -146,6 +146,9 @@ import { mapGetters } from 'vuex';
       ...mapGetters({
         username: 'user'
       })
+    },
+    created() {
+      setUser()
     }
   }
 </script>

@@ -10,6 +10,7 @@ import Admin from '@/components/admin/Admin'
 import CurrentTournament from '@/components/tournament/CurrentTournament'
 import CreateTournament from '@/components/tournament/CreateTournament'
 import Tournament from '@/components/tournament/Tournament'
+import TestThing from '@/components/auth/Test'
 
 // import store from '@/store'
 import store from '../store/store'
@@ -103,6 +104,11 @@ export default new Router({
       path: '/tournament/:id',
       name: 'Tournament',
       component: Tournament
+    },
+    {
+      path: '/testing',
+      name: 'TestThing',
+      component: TestThing
     }
 
   ]

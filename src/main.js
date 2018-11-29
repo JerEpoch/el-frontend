@@ -9,12 +9,16 @@ import AnimatedVue from 'animated-vue'
 import 'animate.css/animate.css'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
+import VeeValidate from 'vee-validate'
+// import Vuelidate from 'vuelidate'
 //import VueResource from 'vue-resource'
 
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(AnimatedVue)
+Vue.use(VeeValidate)
+// Vue.use(Vuelidate)
 Vue.component('icon', Icon)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'

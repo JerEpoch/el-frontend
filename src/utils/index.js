@@ -1,5 +1,8 @@
 import axios from 'axios'
 import store from '../store/store'
+import Vue from 'vue'
+
+export const EventBus = new Vue()
 
 
 export function isValidToken(token) {
@@ -10,7 +13,7 @@ export function isValidToken(token) {
   // splits the token to grab the issued expire time.
   // if the token is not expire return true else false
   const data = JSON.parse(atob(token.split('.')[1]))
-  //console.log(data)
+  console.log(data)
   const exp = new Date(data.exp * 1000)
   const now = new Date()
   return now < exp
@@ -18,21 +21,19 @@ export function isValidToken(token) {
 
 export function setUser() {
   //console.log("setting user....")
-  if(isValidToken(localStorage.getItem('access_token'))) {
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
-    return axios.get('/bracket-api/users/user')
-      .then(res => {
-      //console.log(res.data.logged_in_as)
-      
-      //console.log(res.data)
-  
-      store.commit('SET_USER', res.data.logged_in_as)
-      store.dispatch('setAccess', res.data.user_access)
-    })
-    .catch(err => {
-      console.log("error getting user")
-    })
-  }
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
+  return axios.get('/bracket-api/users/user')
+    .then(res => {
+    //console.log(res.data.logged_in_as)
+    
+    //console.log(res.data)
+
+    store.commit('SET_USER', res.data.logged_in_as)
+    store.dispatch('setAccess', res.data.user_access)
+  })
+  .catch(err => {
+    console.log("error getting user")
+  })
 }
 
 export function getTourns() {
