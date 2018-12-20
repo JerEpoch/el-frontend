@@ -29,7 +29,7 @@ const actions = {
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
     return axios.get('/bracket-api/users/edit/user')
     .then(res => {
-      console.log(res.data)
+      //console.log(res.data)
       const user = res.data
       commit('SET_USER_EDIT', user)
       commit('SET_IS_LOADING', false)
@@ -49,15 +49,16 @@ const actions = {
       newPassword: userData.newPassword,
       elPage: userData.elPage,
       twitch: userData.twitch,
-      twitter: userData.twitter
+      twitter: userData.twitter,
+      newEmail: userData.newEmail
     })
     .then(res => {
-      console.log(res.data)
+      //console.log(res.data)
       router.push('/profile')
     })
     .catch(err => {
       commit('SET_EDIT_ERROR_MSG',err.response.data.errorMsg)
-      //console.log(err.response.data.errorMsg)
+      console.log(err.response.data.errorMsg)
     })
   }
 }

@@ -13,7 +13,6 @@ export function isValidToken(token) {
   // splits the token to grab the issued expire time.
   // if the token is not expire return true else false
   const data = JSON.parse(atob(token.split('.')[1]))
-  console.log(data)
   const exp = new Date(data.exp * 1000)
   const now = new Date()
   return now < exp
@@ -34,6 +33,18 @@ export function setUser() {
   .catch(err => {
     console.log("error getting user")
   })
+}
+
+export function checkUser() {
+  // if the user is not set in the store
+  // and there's a valid jwt. init the user data in the store
+  // this is in case of a refresh and when user returns
+  if(!store.getters.user) {
+    if(isValidToken(localStorage.getItem('access_token'))){
+      // setUser()
+      store.dispatch('initUser')
+    }
+  }
 }
 
 export function getTourns() {

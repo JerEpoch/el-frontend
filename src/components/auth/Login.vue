@@ -14,16 +14,21 @@
       <b-button type="submit">Submit</b-button>
     </b-form>
     <p class="mt-2">Not signed up yet? <router-link to="/signup"><a>Click here.</a></router-link></p>
+    
+    <b-alert variant="danger" :show="loginError" dismissible class="alert-box-width">{{ loginErrorMessage }}</b-alert>
   </b-container>
 </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
     data() {
       return {
         email: '',
-        password: ''
+        password: '',
+        message: 'test message'
       }
     },
     methods: {
@@ -37,10 +42,19 @@
         .then(() => {
 
         })
-        .catch(err => {
-          console.log(err)
-        })
+        // .catch(err => {
+        //   console.log(err)
+        // })
       }
+    },
+    computed: {
+      ...mapGetters({
+        loginError: 'hasError',
+        loginErrorMessage: 'errorMsg'
+      })
+    },
+    beforeDestroy() {
+      this.$store.dispatch('resetErrorState')
     }
   }
 </script>
@@ -48,6 +62,10 @@
 
 <style>
   .input-box-width {
+    width: 55%;
+  }
+
+  .alert-box-width {
     width: 55%;
   }
 </style>

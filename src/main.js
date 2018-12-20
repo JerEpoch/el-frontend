@@ -17,7 +17,10 @@ import VeeValidate from 'vee-validate'
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(AnimatedVue)
-Vue.use(VeeValidate)
+Vue.use(VeeValidate, {
+  inject: true,
+  fieldsBagName: 'veeFields'
+})
 // Vue.use(Vuelidate)
 Vue.component('icon', Icon)
 import 'bootstrap/dist/css/bootstrap.css'

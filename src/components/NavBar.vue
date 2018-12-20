@@ -41,6 +41,7 @@
 <script>
 	import {mapGetters} from 'vuex'
 	import store from '../store/store'
+	import {checkUser} from '@/utils'
 	
 	export default {
 		data() {
@@ -65,6 +66,9 @@
 			isAuthenticated: function() {
 				return this.$store.getters.isAuthenticated
 			}
+		},
+		created() {
+			checkUser()
 		}
 	}
 </script>

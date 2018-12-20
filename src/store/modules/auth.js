@@ -5,8 +5,8 @@ import {isValidToken} from '@/utils'
 
 
 const state = {
-  regErrors: '',
-  hasRegError: false,
+  errorMsg: '',
+  hasError: false,
   user: '',
   message: '',
   access_token: '',
@@ -16,8 +16,8 @@ const state = {
 
 const mutations =  {
   'SET_ERRORS'(state, msg) {
-    state.regErrors = msg
-    state.hasRegError = true
+    state.errorMsg = msg
+    state.hasError = true
   },
   setMessage(state, msg) {
     //console.log(msg)
@@ -27,6 +27,7 @@ const mutations =  {
     state.user = user
   },
   'RESET_ERROR_STATE'(state) {
+    state.regErrors = null
     state.hasRegError = false
   },
   'SET_USER_TOKEN'(state, token) {
@@ -75,17 +76,19 @@ const actions = {
   },
   login({commit}, authData) {
     //console.log(authData)
+    commit('RESET_ERROR_STATE')
     return axios.post('/bracket-api/users/login', {
       email: authData.email,
       password: authData.password
     })
       .then(res => {
-        console.log(res.data)
+        //console.log(res.data)
         commit('SET_USER_TOKEN', res.data)
         router.push('/')
       })
       .catch(error => {
-        console.log(error)
+        commit('SET_ERRORS', error.response.data.errorMsg)
+        //console.log(error.response.data.errorMsg)
       })
   },
   logout({commit}) {
@@ -97,6 +100,22 @@ const actions = {
     //console.log(localStorage.getItem('access_token'))
     commit('SET_TOKEN_USER_BACK', localStorage.getItem('access_token'))
   }, 
+  initUser({commit, dispatch}) {
+    commit('RESET_ERROR_STATE')
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
+    return axios.get('/bracket-api/users/user')
+      .then(res => {
+      //console.log(res.data.logged_in_as)
+      
+      //console.log(res.data)
+
+      commit('SET_USER', res.data.logged_in_as)
+      dispatch('setAccess', res.data.user_access)
+    })
+    .catch(err => {
+      console.log("error getting user")
+    })
+  },
   isTournamentAdmin({commit}, {id}) {
 
     //pull function out and add here
@@ -122,15 +141,18 @@ const actions = {
       //   return true
       // }
     })
+  },
+  resetErrorState({commit}) {
+    commit('RESET_ERROR_STATE')
   }
 }
 
 const getters = {
-  registerErrorMsg(state) {
-    return state.regErrors
+  errorMsg(state) {
+    return state.errorMsg
   },
-  hasReigsterError(state) {
-    return state.hasRegError
+  hasError(state) {
+    return state.hasError
   },
   user(state) {
     return state.user
@@ -154,14 +176,6 @@ const getters = {
     return state.isTournAdmin
   }
 }
-
-
-  // const store = new Vuex.Store({
-  //   state,
-  //   actions,
-  //   mutations,
-  //   getters
-  // })
 
   export default {
     state,

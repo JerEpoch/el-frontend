@@ -121,9 +121,6 @@
     mounted() {
       this.$store.dispatch('isTournamentAdmin', {id: parseInt(this.$route.params.id)})
     },
-    created() {
-			setUser()
-		},
 
     computed: {
       ...mapGetters({

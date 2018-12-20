@@ -13,7 +13,7 @@
 	import {mapMutations} from 'vuex'
 	import axios from 'axios'
 	import store from '../store/store'
-	import {isValidToken, setUser} from '@/utils'
+	import {isValidToken, setUser, checkUser} from '@/utils'
 
 	export default {
 		data() {
@@ -27,10 +27,15 @@
 			})
 		},
 		created() {
-			
-			if(!this.$store.getters.user ){
-				setUser()
-			}
+			//checkUser()
+			// if(!this.username){
+			// 	console.log("no name")
+			// }
+			// if(!this.$store.getters.isAuthenticated){
+	
+			// 		setUser()
+
+			// }
 			
 		},
 		mounted() {

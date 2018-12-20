@@ -146,9 +146,6 @@ import {isValidToken, setUser} from '@/utils'
       ...mapGetters({
         username: 'user'
       })
-    },
-    created() {
-      setUser()
     }
   }
 </script>

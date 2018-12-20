@@ -5,11 +5,12 @@
       <button @click="getApiTwo">Get api two</button>
       <button @click="jwtprot">Test jwt prot</button>
       <button @click="userinfo">Get the user</button>
+      <button @click="forceLogout">Force User Logout</button>
       <h3>{{ msg }}</h3>
       <p>This is for testing only. Doesn't do anything exciting.</p>
       <p>User: {{ userState }}</p>
-      <p>Register Errors: {{ errorMessages }} </p>
-      <p>Has Reg Error: {{ hasRegErr }}</p>
+      <!-- <p>Register Errors: {{ errorMessages }} </p> -->
+      <!-- <p>Has Reg Error: {{ hasRegErr }}</p> -->
       <p>Token: {{ token }}</p>
       <p>authenticated: {{ authenticated }}</p>
   </div>
@@ -87,13 +88,16 @@
       .catch(err => {
         console.log(err)
       })
+    },
+    forceLogout() {
+      this.$store.dispatch('logout')
     }
   },
   computed: {
     ...mapGetters({
       userState: 'user',
-      errorMessages: 'registerErrorMsg',
-      hasRegErr: 'hasReigsterError',
+      // errorMessages: 'registerErrorMsg',
+      // hasRegErr: 'hasReigsterError',
       token: 'getToken',
       authenticated: 'isAuthenticated'
     })

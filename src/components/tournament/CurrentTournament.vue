@@ -53,21 +53,6 @@
 				})
 			}
 		},
-		created() {
-			setUser()
-			// var vm = this
-			// axios.get('/bracket-api/tournament/getAllTournaments')
-			// .then(res => {
-			// 	//console.log(res.data)
-			// 	vm.allTournaments = res.data.tourns
-			// 	vm.completedTournaments = res.data.completedTourns
-			// 	// vm.title = res.data.tourns[0].id
-			// 	//console.log("All Tourns")
-			// //	console.log(this.allTournaments.tourns)
-			// 	//console.log(this.allTournaments.tourns[0].id)
-			// })
-			// .catch(error => console.log(error))
-		},
 		beforeRouteEnter(to, from, next) {
 			next(vm => {
 				vm.getTournaments()
