@@ -1,6 +1,6 @@
 import axios from 'axios'
 import router from '../../router'
-import {isValidToken} from '@/utils'
+import {isValidToken, setUser} from '@/utils'
 
 
 
@@ -84,7 +84,8 @@ const actions = {
       .then(res => {
         //console.log(res.data)
         commit('SET_USER_TOKEN', res.data)
-        router.push('/')
+        setUser()
+        
       })
       .catch(error => {
         commit('SET_ERRORS', error.response.data.errorMsg)

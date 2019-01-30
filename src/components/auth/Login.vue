@@ -22,6 +22,7 @@
 
 <script>
   import { mapGetters } from 'vuex';
+  import {setUser} from '@/utils'
 
   export default {
     data() {
@@ -40,7 +41,8 @@
         }
         this.$store.dispatch('login', formData)
         .then(() => {
-
+          
+          this.$router.push('/profile')
         })
         // .catch(err => {
         //   console.log(err)

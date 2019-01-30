@@ -50,7 +50,8 @@ const actions = {
       elPage: userData.elPage,
       twitch: userData.twitch,
       twitter: userData.twitter,
-      newEmail: userData.newEmail
+      newEmail: userData.newEmail,
+      about: userData.aboutMe
     })
     .then(res => {
       //console.log(res.data)

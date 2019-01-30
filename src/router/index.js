@@ -5,6 +5,8 @@ import Home from '@/components/Home'
 import About from '@/components/About'
 import Signup from '@/components/auth/Signup'
 import Login from '@/components/auth/Login'
+import Community from '@/components/community/Community'
+import UserProfile from '@/components/community/UserProfile'
 import Profile from '@/components/auth/Profile'
 import Admin from '@/components/admin/Admin'
 import CurrentTournament from '@/components/tournament/CurrentTournament'
@@ -53,6 +55,11 @@ export default new Router({
       component: Login
     },
     {
+      path: '/community',
+      name: 'Community',
+      component: Community
+    },
+    {
       path: '/profile',
       name: 'Profile',
       component: Profile,
@@ -65,6 +72,11 @@ export default new Router({
           next()
         }
       }
+    },
+    {
+      path: '/profile/user/:id',
+      name: 'UserProfile',
+      component: UserProfile
     },
     {
       path: '/admin',

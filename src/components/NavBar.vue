@@ -9,6 +9,10 @@
 				</b-navbar-nav>
 
 				<b-navbar-nav>
+					<b-nav-item><router-link to="/community"><a>Our Community</a></router-link></b-nav-item>
+				</b-navbar-nav>
+
+				<b-navbar-nav>
 					<b-nav-item-dropdown>
 						<template slot="button-content">Tournaments</template>
 						<b-dropdown-item><router-link to="/current_tournament"><a>Current Tournaments</a></router-link></b-dropdown-item>
@@ -17,7 +21,7 @@
 				</b-navbar-nav>
 
 				<b-navbar-nav class="ml-auto">
-					<b-nav-item right><router-link to="/about"><a>About</a></router-link></b-nav-item>
+					<b-nav-item right><router-link to="/about"><a>About Us</a></router-link></b-nav-item>
 					<b-nav-item-dropdown right>
 						<template slot="button-content" v-if="isAuthenticated">{{username}}</template>
 						<template slot="button-content" v-else>User</template>
@@ -27,7 +31,6 @@
 							<b-dropdown-item ><router-link to="/login"><a>Login</a></router-link></b-dropdown-item>
 						</div>
 						<div v-if="username">
-							<!-- <b-dropdown-item ><router-link :to="`/profile/${username}`"><a>Profile</a></router-link></b-dropdown-item> -->
 							<b-dropdown-item ><router-link :to="`/profile`"><a>Profile</a></router-link></b-dropdown-item>
 							<b-dropdown-item  @click="logout"><a>Logout</a></b-dropdown-item>
 						</div>

@@ -94,6 +94,11 @@
           <b-form-group label="Current Password:">
             <b-form-input type="password" required placeholder="Current Password" v-model="password" class="input-box-width"></b-form-input>
           </b-form-group>
+
+          <b-form-group label="About Me:">
+            <b-form-textarea class="About-Me-Field" placeholder="Tell us about yourself. What makes you tick as a person?" :rows="4" :max-rows="20" v-model="aboutMe"></b-form-textarea>
+          </b-form-group>
+          
   
         <b-button type="submit">Save Changes</b-button>
       </b-form>
@@ -124,6 +129,7 @@
         twitter: '',
         hasError: false,
         errorMessage: '',
+        aboutMe: '',
         userData: {}
       }
     },
@@ -149,14 +155,18 @@
           this.$validator.validateAll().then(result => {
             if(!result) {
               console.log("errs")
+              console.log(result)
             } else {
-              console.log("ok")
+              this.checkIfChange()
+              this.userData.password = this.password
+              console.log(this.userData)
+              this.$store.dispatch('sendUserProfile', this.userData)
             }
             
             // if(!this.errors.any()) {
             //   console.log("NO ERRORS BROOOOO")
-            //   this.checkIfChange()
-            //   this.userData.password = this.password
+            //   
+            //   
             //   console.log(this.userData)
             //   //this.$store.dispatch('sendUserProfile', this.userData)
             // }
@@ -178,6 +188,7 @@
         if(this.email != this.$store.getters.getEditUserInfo.email) {
           this.userData.newEmail = true
         }
+   
         // this is needed otherwise it sends an empty string as a password.
         // that obviously is a terrible password. So this adds it only if user entered one.
         if(this.newPassword) {
@@ -188,6 +199,7 @@
         
         this.userData.twitter = this.twitter
         this.userData.elPage = this.elPage
+        this.userData.aboutMe = this.aboutMe
 
         // THIS IS OLD NOT NEED ANY LONGER
         // if(this.email){
@@ -214,12 +226,14 @@
         this.elPage = this.$store.getters.getEditUserInfo.elPage
         this.twitch = this.$store.getters.getEditUserInfo.twitch
         this.twitter =  this.$store.getters.getEditUserInfo.twitter
+        this.aboutMe =  this.$store.getters.getEditUserInfo.aboutMe
       }
     },
     created() {
       return this.$store.dispatch('getUserInfo').then(() => {
         this.initUserProfile()
       })
+
     },
     beforeCreate() {
       
@@ -232,8 +246,9 @@
     },
     mounted() {
       //console.log("email in mounted hook  " + this.$store.getters.getEditUserInfo.email)
-      
+
       //this.email = this.$store.getters.getEditUserInfo.email
+
     },
     beforeDestroy() {
       this.$store.dispatch('resetErrorState')
@@ -259,6 +274,13 @@
   .input-box-width {
     width: 55%;
   }
+
+  .About-Me-Field {
+    width: 55%;
+    /* white-space: pre-line; */
+    white-space: pre-wrap;
+  }
+
   .error {
     color: red;
   }
