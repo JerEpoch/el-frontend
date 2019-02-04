@@ -3,6 +3,7 @@
 		<b-container class="justify-content-center">
 			<h1>Welcome to the Extra Life Bracket Site</h1>
 			<h2>Hello, {{ username }}</h2>
+			<h1>This site is a work in progress.</h1>
 			<!-- <p v-if="username">has name</p> -->
 		</b-container>
 	</div>
