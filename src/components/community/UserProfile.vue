@@ -1,8 +1,19 @@
 <template>
   <div>
     <b-container class="justify-content-center">
-      <h1>{{ user.username }}'s profile</h1>
-      
+      <b-card no-body class="card-profile mt-3 border  border-secondary rounded card-background-color">
+        <h4 slot="header" class="text-center">{{ user.username }}'s Profile</h4>
+        <b-card-body  v-if="user.aboutMe" class="aboutMe-card-body">{{user.aboutMe}}</b-card-body>
+        <b-card-body v-else>This member has not filled out their about section.</b-card-body>
+        
+        <b-card-body class="card-body-links" v-if="userLinks">
+          <a :href="'//' + user.twitch" v-if="user.twitch">Twitch</a>
+          <a :href="'//'  + user.twitter" v-if="user.twitter">Twitter</a>
+          <a :href="'//' + user.elPage" v-if="user.elPage">Extra Life Page</a>
+        </b-card-body>
+
+        <b-card-body v-else>Member has not added any of their pages.</b-card-body>
+      </b-card>
     </b-container>
   </div>
 </template>
@@ -23,7 +34,7 @@ import axios from 'axios'
     methods: {
       getUserProfile() {
         const userID = parseInt(this.$route.params.id)
-        console.log("User id is " + userID)
+        //console.log("User id is " + userID)
         return axios.get(`/bracket-api/users/community/user/${userID}`)
         .then(res => {
           this.user = res.data.msg
@@ -32,6 +43,9 @@ import axios from 'axios'
   }
     },
     computed: {
+      userLinks() {
+        return this.user.twitter || this.user.twitch || this.user.elPage
+      }
       // user() {
       //   const id = parseInt(this.$route.params.id)
       //   console.log(id)
@@ -42,3 +56,25 @@ import axios from 'axios'
   }
 </script>
 
+<style>
+  .card-profile {
+    max-width: 70%;
+  }
+
+  .card-background-color {
+    background-color: #edf4ff;
+  }
+
+  .card-header {
+    border-bottom: 1px solid rgb(106, 112, 122);
+  }
+
+  .card-body-links {
+    border-top: 1px solid;
+  }
+
+  .aboutMe-card-body {
+    white-space: pre-wrap;
+    
+  }
+</style>

@@ -6,12 +6,18 @@
       <div v-if="!isLoading">
         <h1>Our Community</h1>
         
-        <ul>
-          <li v-for="(user, index) in communityMembers" :key="index">
-            <router-link :to="'/profile/user/' + user.id"> {{ user.username}} </router-link>
-            
-          </li>
-        </ul>
+        <div v-if="communityMembers.length">
+          <ul>
+            <li v-for="(user, index) in communityMembers" :key="index">
+              <router-link :to="'/profile/user/' + user.id"> {{ user.username}} </router-link>
+            </li>
+          </ul>
+        </div>
+        
+        <div v-else>
+          <h4>No one has joined the community yet. You can signup <router-link to="/signup"><a>here.</a></router-link></h4>
+        </div>
+
       </div>
     </b-container>
   </div>

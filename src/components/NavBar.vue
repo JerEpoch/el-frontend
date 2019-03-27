@@ -9,7 +9,12 @@
 				</b-navbar-nav>
 
 				<b-navbar-nav>
-					<b-nav-item><router-link to="/community"><a>Our Community</a></router-link></b-nav-item>
+					<!-- <b-nav-item><router-link to="/community"><a>Our Community</a></router-link></b-nav-item> -->
+					<b-nav-item-dropdown>
+						<template slot="button-content">Community</template>
+						<b-dropdown-item><router-link to="/community"><a>Members</a></router-link></b-dropdown-item>
+						<b-dropdown-item><router-link to="/community-news"><a>Community News</a></router-link></b-dropdown-item>
+					</b-nav-item-dropdown>
 				</b-navbar-nav>
 
 				<b-navbar-nav>
@@ -22,16 +27,17 @@
 
 				<b-navbar-nav class="ml-auto">
 					<b-nav-item right><router-link to="/about"><a>About Us</a></router-link></b-nav-item>
-					<b-nav-item-dropdown right>
+
+					<b-nav-item right v-if="!isAuthenticated"><router-link to="/signup" class="btn-signup"><b-button variant="primary" size="sm" class="btn-signup">Signup</b-button></router-link></b-nav-item>
+					<b-nav-item right v-if="!isAuthenticated"><router-link to="/login"><a>Login</a></router-link></b-nav-item>
+
+					<b-nav-item-dropdown right v-if="isAuthenticated">
 						<template slot="button-content" v-if="isAuthenticated">{{username}}</template>
-						<template slot="button-content" v-else>User</template>
+						<template slot="button-content" v-else>Member</template>
 						<b-dropdown-item v-if="getAdmin"><router-link to="/admin" ><a>Admin Page</a></router-link></b-dropdown-item>
-						<div v-if="!username">
-							<b-dropdown-item ><router-link to="/signup"><a>Register</a></router-link></b-dropdown-item>
-							<b-dropdown-item ><router-link to="/login"><a>Login</a></router-link></b-dropdown-item>
-						</div>
 						<div v-if="username">
 							<b-dropdown-item ><router-link :to="`/profile`"><a>Profile</a></router-link></b-dropdown-item>
+							<b-dropdown-item ><router-link :to="`/write-news-post`"><a>Write News Post</a></router-link></b-dropdown-item>
 							<b-dropdown-item  @click="logout"><a>Logout</a></b-dropdown-item>
 						</div>
 					</b-nav-item-dropdown>
@@ -79,5 +85,9 @@
 <style scoped>
 	#navbar-background {
 		background-color: #9ac1ea;
+	}
+
+	.btn-signup {
+		color: white;
 	}
 </style>
