@@ -7,6 +7,7 @@ import Signup from '@/components/auth/Signup'
 import Login from '@/components/auth/Login'
 import Community from '@/components/community/Community'
 import CommunityNews from '@/components/community/CommunityNews'
+import NewsPost from '@/components/community/NewsPost'
 import WriteNewsPost from '@/components/community/WriteNewsPost'
 import UserProfile from '@/components/community/UserProfile'
 import Profile from '@/components/auth/Profile'
@@ -70,6 +71,11 @@ export default new Router({
       path: '/write-news-post',
       name: 'WriteNewsPost',
       component: WriteNewsPost
+    },
+    {
+      path: '/newspost/:id',
+      name: 'NewsPost',
+      component: NewsPost
     },
     {
       path: '/profile',

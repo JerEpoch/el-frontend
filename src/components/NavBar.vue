@@ -1,8 +1,9 @@
 <template>
 	<div>
-		<b-navbar toggleable id="navbar-background">
-			<b-navbar-toggle target="nav_text_collapse"></b-navbar-toggle>
+		<b-navbar toggleable="lg" id="navbar-background">
+			
 			<b-navbar-brand><router-link to="/">WI Extra Life</router-link></b-navbar-brand>
+			<b-navbar-toggle target="nav_text_collapse"></b-navbar-toggle>
 			<b-collapse is-nav id="nav_text_collapse">
 				<b-navbar-nav>
 					<b-nav-item><router-link to="/getapi"><a>API</a></router-link></b-nav-item>

@@ -47,6 +47,20 @@ export function checkUser() {
   }
 }
 
+export function checkUserInfoSet() {
+  if(this.$store.getters.getEditUserInfo.email === undefined){
+    //onsole.log(this.$store.getters.getEditUserInfo.email)
+    //console.log("no profile loaded")
+    return this.$store.dispatch('getUserInfo').then(() => {
+      this.initUserProfile()
+    })
+  }
+  else {
+    //console.log("profile already there")
+    this.initUserProfile()
+  }
+}
+
 export function getTourns() {
   console.log("test get tourns")
 }

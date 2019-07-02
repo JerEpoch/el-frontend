@@ -14,6 +14,10 @@
 
         <b-card-body v-else>Member has not added any of their pages.</b-card-body>
       </b-card>
+
+      <div>
+        <router-link to="/community"><a>Members List</a></router-link>
+      </div>
     </b-container>
   </div>
 </template>

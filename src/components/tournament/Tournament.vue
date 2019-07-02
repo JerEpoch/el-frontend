@@ -50,9 +50,9 @@
       var vm = this
       axios.get(`/bracket-api/tournament/${id}`)
       .then(res => {
-        console.log("RETURN DATA FOR TOURNAMENT")
-        console.log(res.data.tournament)
-        console.log("================================")
+        // console.log("RETURN DATA FOR TOURNAMENT")
+        // console.log(res.data.tournament)
+        // console.log("================================")
         vm.tournament = res.data.tournament
         vm.match = res.data.tournament.match
         vm.tournamentCompleted = res.data.tournament.tournamentCompleted

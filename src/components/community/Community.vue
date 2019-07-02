@@ -8,8 +8,12 @@
         
         <div v-if="communityMembers.length">
           <ul>
-            <li v-for="(user, index) in communityMembers" :key="index">
-              <router-link :to="'/profile/user/' + user.id"> {{ user.username}} </router-link>
+            <li v-for="(user, index) in communityMembers" :key="index" class="user">
+              <router-link :to="'/profile/user/' + user.id" > {{ user.username}} </router-link>
+              <!-- {{ user.twitch }} -->
+              <!-- <div class="streamer">Streamer</div> -->
+              <a href="twitch.tv" v-if="user.twitch" class="twitch-link"><font-awesome-icon :icon="['fab', 'twitch']"></font-awesome-icon></a>
+              <!-- <font-awesome-icon :icon="['fab', 'twitch']" v-if="user.twitch"></font-awesome-icon> -->
             </li>
           </ul>
         </div>
@@ -60,5 +64,19 @@
 <style>
   li {
     list-style-type: none;
+  }
+
+  .user {
+    padding-bottom: .25em;
+  }
+
+  .streamer {
+    border: 1px solid blue;
+    width: 75px;
+    text-align: center;
+  }
+
+  .twitch-link {
+    color: black;
   }
 </style>

@@ -200,26 +200,6 @@
         this.userData.twitter = this.twitter
         this.userData.elPage = this.elPage
         this.userData.aboutMe = this.aboutMe
-
-        // THIS IS OLD NOT NEED ANY LONGER
-        // if(this.email){
-        //   if(this.email != this.$store.getters.getEditUserInfo.email) {
-        //     this.userData.newEmail = true
-        //   }
-        //   this.userData.email = this.email
-        // }
-        // if(this.twitch){
-        //   this.userData.twitch = this.twitch
-        // }
-        // if(this.newPassword) {
-        //   this.userData.newPassword = this.newPassword
-        // }
-        // if(this.twitter) {
-        //   this.userData.twitter = this.twitter
-        // }
-        // if(this.elPage){
-        //   this.userData.elPage = this.elPage
-        // }
       },
       initUserProfile() {
         this.email = this.$store.getters.getEditUserInfo.email
@@ -230,7 +210,6 @@
       }
     },
     created() {
-      // console.log(this.$store.getters.getEditUserInfo.email)
       if(this.$store.getters.getEditUserInfo.email === undefined){
         //onsole.log(this.$store.getters.getEditUserInfo.email)
         //console.log("no profile loaded")

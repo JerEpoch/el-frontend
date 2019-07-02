@@ -3,7 +3,7 @@
     <b-container class="justify-content-center">
       <h1>Community News</h1>
       
-      <header>
+      <!-- <header>
         <hr>
         <h3>Article Headline</h3>
         <h6>by  Person - Date</h6>
@@ -13,13 +13,28 @@
       <article>
         {{ testThing|truncate }}<router-link :to="'#'">Add Read More Link Eventually</router-link>
         
-      </article>
+      </article> -->
+
+    
+        <ul>
+          <li v-for="(p) in newsPosts" :key="p.id">
+            <div class="news-post">
+              <h1 class="news-title">{{ p.newsTitle }}</h1>
+              <div class="posted-by-t">by  {{ p.user }} - {{ p.publishDate | moment("MMMM Do YYYY") }}</div>
+              <div class="post-preview">{{ p.newsPost|truncate }}<router-link :to="`/newspost/${p.id}`" v-if="p.newsPost.length > 200">Read more</router-link></div>
+            </div>
+  
+          </li>
+        </ul>
+  
       
     </b-container>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
     data() {
       return {
@@ -33,6 +48,39 @@
         }
         return val
       }
+    },
+    created() {
+      this.$store.dispatch('getCommunityNewsPosts')
+    },
+    computed: {
+      ...mapGetters({
+        newsPosts: 'getCommunityNews'
+      })
     }
   }
 </script>
+
+<style>
+  ul {
+    list-style-type: none;
+  }
+
+  .news-post {
+    padding-bottom: .75em;
+  }
+  
+  .news-title {
+    font-weight: normal;
+    font-size: 34px;
+  }
+
+  .posted-by {
+    font-size: 14px;
+  }
+
+  .post-preview {
+    padding-bottom: 2px;
+    border-bottom: 2px solid;
+    border-bottom-color: #dee1e5;
+  }
+</style>

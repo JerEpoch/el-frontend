@@ -6,6 +6,7 @@
       <button @click="jwtprot">Test jwt prot</button>
       <button @click="userinfo">Get the user</button>
       <button @click="forceLogout">Force User Logout</button>
+      <button @click="deleteposts">Delete news post</button>
       <h3>{{ msg }}</h3>
       <p>This is for testing only. Doesn't do anything exciting.</p>
       <p>User: {{ userState }}</p>
@@ -91,6 +92,12 @@
     },
     forceLogout() {
       this.$store.dispatch('logout')
+    },
+    deleteposts() {
+      return axios.get('/bracket-api/communitynews/deletepost')
+      .then(res => {
+        console.log(res.data)
+      })
     }
   },
   computed: {

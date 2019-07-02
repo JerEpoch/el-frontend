@@ -4,7 +4,8 @@ import router from '../../router'
 const state = {
   communityMembers: '',
   communityErrors: '',
-  communityIsLoading: true
+  communityIsLoading: true,
+  communityAllNews: ''
 }
 
 const mutations = {
@@ -16,6 +17,9 @@ const mutations = {
   },
   'SET_COMMUNITY_IS_LOADING'(state, payload) {
     state.communityIsLoading = payload
+  },
+  'SET_COMMUNITY_NEWS'(state, payload) {
+    state.communityAllNews = payload
   }
 }
 
@@ -25,6 +29,9 @@ const getters = {
   },
   getCommunityLoading(state) {
     return state.communityIsLoading
+  },
+  getCommunityNews(state) {
+    return state.communityAllNews
   }
 }
 
@@ -53,6 +60,14 @@ const actions = {
     })
     .catch(err =>{
       console.log(err.response.data.error)
+    })
+  },
+  getCommunityNewsPosts({commit}) {
+    console.log("getting all the news posts")
+    return axios.get('/bracket-api/communitynews/getnewsposts')
+    .then(res => {
+      console.log(res.data.data)
+      commit('SET_COMMUNITY_NEWS', res.data.data)
     })
   }
 }

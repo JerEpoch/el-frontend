@@ -10,6 +10,8 @@ import 'animate.css/animate.css'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 import VeeValidate from 'vee-validate'
+import moment from 'moment'
+import './utils/fa.config'
 // import Vuelidate from 'vuelidate'
 //import VueResource from 'vue-resource'
 
@@ -17,12 +19,25 @@ import VeeValidate from 'vee-validate'
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(AnimatedVue)
+Vue.use(require('vue-moment'))
 Vue.use(VeeValidate, {
   inject: true,
   fieldsBagName: 'veeFields'
 })
 // Vue.use(Vuelidate)
-Vue.component('icon', Icon)
+Vue.component('v-icon', Icon)
+
+//font awesome stuff
+import { library } from '@fortawesome/fontawesome-svg-core'
+// import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+// import { faJs, faVuejs } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+// library.add(faCoffee, faJs, faVuejs)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+//end
+
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
