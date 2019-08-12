@@ -61,9 +61,22 @@ export function checkUserInfoSet() {
   }
 }
 
+export function getAnnouncements() {
+  console.log(store.getters.getAnnoucements)
+  if(!store.getters.getAnnoucements){
+    return axios.get('/bracket-api/communitynews/getannouncements')
+    .then(res => {
+      console.log(res.data.data)
+      store.commit('SET_ANNOUNCEMENTS', res.data.data)
+    })
+  }
+}
+
 export function getTourns() {
   console.log("test get tourns")
+  
 }
+
 
 // checks if user is the creator of the tournament and returns true
 // export function checkTournAdmin(token, id) {

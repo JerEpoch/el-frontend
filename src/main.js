@@ -12,6 +12,7 @@ import Icon from 'vue-awesome/components/Icon'
 import VeeValidate from 'vee-validate'
 import moment from 'moment'
 import './utils/fa.config'
+import './utils/filters'
 // import Vuelidate from 'vuelidate'
 //import VueResource from 'vue-resource'
 

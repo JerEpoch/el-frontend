@@ -15,6 +15,7 @@
 						<template slot="button-content">Community</template>
 						<b-dropdown-item><router-link to="/community"><a>Members</a></router-link></b-dropdown-item>
 						<b-dropdown-item><router-link to="/community-news"><a>Community News</a></router-link></b-dropdown-item>
+						<b-dropdown-item><router-link to="/announcements"><a>Announcements</a></router-link></b-dropdown-item>
 					</b-nav-item-dropdown>
 				</b-navbar-nav>
 

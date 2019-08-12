@@ -4,14 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import { faUser, faBuilding } from '@fortawesome/free-solid-svg-icons'
 import { faUserCircle, faCheckCircle } from '@fortawesome/free-regular-svg-icons'
-import { faTwitch } from '@fortawesome/free-brands-svg-icons'
+import { faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 library.add(
   faUser,
   faBuilding,
   faUserCircle,
   faCheckCircle,
-  faTwitch
+  faTwitch,
+  faTwitter
 );
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);

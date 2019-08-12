@@ -82,12 +82,12 @@
         </b-form-group>
 
         <b-form-group label="TwitchTV:">
-          <b-form-input :type="'text'"  placeholder="twitch.tv/YOURUSERNAME" v-model="twitch" class="input-box-width" v-validate.disable="'url'" name='twitch' :class="{ invalid: errors.has('twitch')}"></b-form-input>
-          <span v-show="errors.has('twitch')" class="span-show-message">{{ errors.first('twitch') }} (Must be in format twitch.tv/USER)</span>
+          <b-form-input :type="'text'"  placeholder="Your Twitch Username" v-model="twitch" class="input-box-width" v-validate.disable="'alpha'" name='twitch' :class="{ invalid: errors.has('twitch')}"></b-form-input>
+          <span v-show="errors.has('twitch')" class="span-show-message">{{ errors.first('twitch') }} (Your Twitch Username)</span>
         </b-form-group>
 
         <b-form-group label="Twitter:">
-          <b-form-input type="text"  placeholder="Twitter" v-model="twitter" class="input-box-width" v-validate.disable="'url'" name='twitter' :class="{ invalid: errors.has('twitter')}" data-vv-as="Twitter"></b-form-input>
+          <b-form-input type="text"  placeholder="Your Twitter Username" v-model="twitter" class="input-box-width" v-validate.disable="'url'" name='twitter' :class="{ invalid: errors.has('twitter')}" data-vv-as="Twitter"></b-form-input>
           <span v-show="errors.has('twitter')" class="span-show-message"></span>
         </b-form-group>
 

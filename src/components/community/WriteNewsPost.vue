@@ -15,6 +15,9 @@
         </b-form-group>
 
         <b-button type="submit">Create Post</b-button>
+        <b-form-checkbox v-model="isAnnouncement">Check if you want to make this an announcement.</b-form-checkbox>
+        {{isAnnouncement}}
+        
       </b-form>
 
     </b-container>
@@ -31,7 +34,8 @@
       return {
         postTitle: '',
         postBody: '',
-        postData: {}
+        postData: {},
+        isAnnouncement: false
       }
     },
 
@@ -43,6 +47,8 @@
         if (this.checkInput()) {
           this.postData.postTitle = this.postTitle
           this.postData.postBody = this.postBody
+          this.postData.isAnnouncement = this.isAnnouncement
+          console.log(this.postData)
           this.submitNewsPost(this.postData)
           //this.$store.dispatch('submitNewsPost', this.postData)
         } else {

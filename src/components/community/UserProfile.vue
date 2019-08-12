@@ -7,9 +7,9 @@
         <b-card-body v-else>This member has not filled out their about section.</b-card-body>
         
         <b-card-body class="card-body-links" v-if="userLinks">
-          <a :href="'//' + user.twitch" v-if="user.twitch">Twitch</a>
-          <a :href="'//'  + user.twitter" v-if="user.twitter">Twitter</a>
-          <a :href="'//' + user.elPage" v-if="user.elPage">Extra Life Page</a>
+          <a :href="'https://twitch.tv/' + user.twitch" v-if="user.twitch" target="_blank" class="fa-icon-padding"><font-awesome-icon :icon="['fab', 'twitch']" size="2x"></font-awesome-icon></a>
+          <a :href="'https://www.twitter.com'  + user.twitter" v-if="user.twitter" target="_blank"><font-awesome-icon :icon="['fab', 'twitter']" size="2x"></font-awesome-icon></a>
+          <a :href="'https://' + user.elPage" v-if="user.elPage" target="_blank">Extra Life Page</a>
         </b-card-body>
 
         <b-card-body v-else>Member has not added any of their pages.</b-card-body>
@@ -80,5 +80,9 @@ import axios from 'axios'
   .aboutMe-card-body {
     white-space: pre-wrap;
     
+  }
+
+  .fa-icon-padding {
+    padding-right: 7px;
   }
 </style>
