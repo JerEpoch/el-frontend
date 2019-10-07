@@ -7,7 +7,9 @@ const state = {
   communityErrors: '',
   communityIsLoading: true,
   communityAllNews: '',
-  announcements: ''
+  announcements: '',
+  totalPages: '',
+  postPerPage: ''
 }
 
 const mutations = {
@@ -25,7 +27,14 @@ const mutations = {
   },
   'SET_ANNOUNCEMENTS'(state, payload) {
     state.announcements = payload
+  },
+  'SET_TOTALPAGES'(state, payload) {
+    state.totalPages = payload
+  },
+  'SET_POST_PER_PAGE'(state, payload) {
+    state.postPerPage = payload
   }
+
 }
 
 const getters = {
@@ -40,6 +49,12 @@ const getters = {
   },
   getAnnouncements(state) {
     return state.announcements
+  },
+  getTotalPages(state) {
+    return state.totalPages
+  },
+  getPostPerPage(state) {
+    return state.postPerPage
   }
 }
 
@@ -57,7 +72,7 @@ const actions = {
     })
   },
   submitNewsPost({}, postData) {
-    console.log("sending " + postData.postBody + " " + postData.postTitle + " " + postData.isAnnouncement)
+    //console.log("sending " + postData.postBody + " " + postData.postTitle + " " + postData.isAnnouncement)
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
     return axios.post('/bracket-api/communitynews/newpost', {
       news_title: postData.postTitle,
@@ -71,19 +86,45 @@ const actions = {
       console.log(err.response.data.error)
     })
   },
-  getCommunityNewsPosts({commit}) {
-    console.log("getting all the news posts")
-    return axios.get('/bracket-api/communitynews/getnewsposts')
-    .then(res => {
-      console.log(res.data.data)
-      commit('SET_COMMUNITY_NEWS', res.data.data)
+  async getCommunityNewsPosts({commit}, page) {
+    try {
+      let response = await axios.get('/bracket-api/communitynews/getnewsposts', {
+      params: {
+        page: page
+      }
     })
+      commit('SET_COMMUNITY_NEWS', response.data.data)
+      commit('SET_TOTALPAGES', response.data.totalPages)
+      commit('SET_POST_PER_PAGE', response.data.postsPerPage)
+    } catch(err) {
+      return {error: err}
+    }
+
+
+    // return axios.get('/bracket-api/communitynews/getnewsposts', {
+    //   params: {
+    //     page: page
+    //   }
+    // })
+    // .then(res => {
+    //    //console.log(res.data)
+    //   // console.log("next url is: " + res.data.nextUrl)
+    //   // console.log("total pages are: " + res.data.totalPages)
+    //   commit('SET_COMMUNITY_NEWS', res.data.data)
+    //   commit('SET_TOTALPAGES', res.data.totalPages)
+    //   commit('SET_POST_PER_PAGE', res.data.postsPerPage)
+    // })
   },
   getCommunityAnnouncements({commit}) {
     
   }
 }
 
+// return axios.get(url here, {
+//   params: {
+//     page: blah blah
+//   }
+// })
 
 
 export default {

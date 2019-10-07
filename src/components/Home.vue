@@ -13,7 +13,7 @@
 				</ul>
 
 			</div>
-			<p class="members-news-link">Looking for our members' announcements?<router-link to="/community-news">Click here.</router-link></p>
+			<p class="members-news-link">Looking for our members' announcements? <router-link to="/community-news">Click here.</router-link></p>
 			<p class="members-news-link"><router-link to="/announcements">See all announcements.</router-link></p>
 
 			<h2>This site is a work in progress.</h2>

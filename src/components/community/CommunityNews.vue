@@ -26,14 +26,25 @@
   
           </li>
         </ul>
-  
+
+      <!-- <div class="overflow-auto">
+        <b-pagination-nav :link-gen="linkGen" :number-of-pages="10" use-router></b-pagination-nav>
+      </div> -->
+
+      <div class="overflow-auto">
+        <b-pagination v-model="currentPage" :total-rows="totalPages" :per-page="postPerPage" @change="getNewsPage"></b-pagination>
+      </div>
+
+      <!-- <div>{{currentPage}}</div>
+      <div>{{totalPages}}</div> -->
       
     </b-container>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
+  import axios from 'axios'
   // import {truncateNewsPost} from '@/utils'
   // import '.../utils/filters'
   
@@ -41,7 +52,7 @@
   export default {
     data() {
       return {
-        testThing: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac dapibus nibh. Proin et posuere lorem. Praesent vel scelerisque purus, at sodales enim. Cras in imperdiet quam. Quisque sit amet massa orci. Nunc egestas arcu et odio commodo condimentum. Nulla condimentum pellentesque velit non ultricies. Proin vehicula maximus molestie. Donec eget consectetur risus, in aliquam magna. Sed tempus, arcu non gravida efficitur, tortor ex finibus tortor, non posuere lorem nulla ac enim. Donec nisl eros, efficitur nec nisl sit amet, mollis pretium est. Suspendisse at neque ut lectus vehicula lacinia nec ac nisl. Phasellus a erat lorem. Sed ultricies laoreet magna. Vestibulum a posuere arcu. Mauris eget feugiat ligula.'
+        currentPage: 1
       }
     },
     created() {
@@ -49,8 +60,28 @@
     },
     computed: {
       ...mapGetters({
-        newsPosts: 'getCommunityNews'
+        newsPosts: 'getCommunityNews',
+        totalPages: 'getTotalPages',
+        postPerPage: 'getPostPerPage'
       })
+    },
+    methods: {
+      ...mapActions(['getCommunityNewsPosts']),
+      linkGen(pageNum) {
+        return pageNum === 1 ? '?' : `?page=${pageNum}`
+      },
+      getNewsPage(page) {
+        this.getCommunityNewsPosts(page)
+        // console.log("current page clicked is " + page)
+        // axios.get('/bracket-api/communitynews/getnewsposts',{
+        //   params: {
+        //     page: page
+        //   }
+        // })
+        // .then(res => {
+        //   console.log(res.data)
+        // })
+      }
     }
   }
 </script>
