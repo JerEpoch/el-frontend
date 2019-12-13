@@ -14,6 +14,10 @@
       <!-- <p>Has Reg Error: {{ hasRegErr }}</p> -->
       <p>Token: {{ token }}</p>
       <p>authenticated: {{ authenticated }}</p>
+
+      <div>
+        <button @click="testHeroku">Test heroku</button>
+      </div>
   </div>
 </template>
 
@@ -97,6 +101,13 @@
       return axios.get('/bracket-api/communitynews/deletepost')
       .then(res => {
         console.log(res.data)
+      })
+    },
+    testHeroku() {
+      console.log("testing heroku api")
+      axios.get('https://flask-test-bracket3.herokuapp.com/bracket-api/api')
+      .then(resp => {
+        console.log(resp.data)
       })
     }
   },

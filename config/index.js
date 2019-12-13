@@ -10,11 +10,11 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
-      '/bracket-api': {
-        target: 'http://localhost:5000',
-        changeOrigin: false
-      }
+    // proxyTable: {
+    //   '/bracket-api': {
+    //     target: 'http://localhost:5000',
+    //     changeOrigin: false
+    //   }
     },
 
     // Various Dev Server settings
