@@ -20,7 +20,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.7",
     "animate.css": "^3.7.2",
     "animated-vue": "^0.5.3",
-    "auth0-js": "^9.11.3",
+    "auth0-js": "^9.13.2",
     "axios": "^0.18.1",
     "bootstrap-vue": "^2.0.0",
     "vee-validate": "^2.2.15",
